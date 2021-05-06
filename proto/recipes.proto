@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+option go_package = "7linternational.com/grpc-server/proto";
+option java_multiple_files = true;
+option java_package = "com.sevenlayer.grpcclient";
+option java_outer_classname = "RecipesProto";
+option objc_class_prefix = "RCP";
+
+package recipes;
+
+service Recipes {
+  rpc Register (RegisterRequest) returns (RegisterResponse) {}
+  rpc Login (LoginRequest) returns (LoginResponse) {}
+  rpc GetUserRecipes (GetUserRecipesRequest) returns (GetUserRecipesResponse) {}
+}
+
+message RegisterRequest {
+  string firstName = 1;
+  string lastName = 2;
+  string email = 3;
+  string password = 4;
+}
+
+message RegisterResponse {
+  int64 code = 1;
+  string message = 2;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  int64 code = 1;
+  string message = 2;
+  int64 userId = 3;
+  string firstName = 4;
+  string lastName = 5;
+  string email = 6;
+}
+
+message Product {
+	int64 productId = 1;
+	string title = 2;
+	string description = 3;
+	string imageUrl = 4;
+}
+
+message Recipe {
+	int64 recipeId = 1;
+	string title = 2;
+	string description = 3;
+	string imageUrl = 4;
+	int64 userId = 5;
+	repeated Product products = 6;
+}
+
+message GetUserRecipesRequest {
+	int64 userId = 1;
+}
+
+message GetUserRecipesResponse {
+	int64 code = 1;
+	string message = 2;
+	repeated Recipe recipes = 3;
+}
